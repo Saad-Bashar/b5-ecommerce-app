@@ -10,6 +10,7 @@ export interface TextProps {
   textColor?: string;
   centered?: boolean;
   white?: boolean;
+  uppercase?: boolean;
 }
 
 export default function Text(props: TextProps) {
@@ -20,6 +21,7 @@ export default function Text(props: TextProps) {
     textColor,
     centered,
     white,
+    uppercase,
     ...rest
   } = props;
 
@@ -34,7 +36,8 @@ export default function Text(props: TextProps) {
         style,
         textColor && { color: textColor },
         centered && { textAlign: "center" },
-        white && { color: "#fff" }
+        white && { color: "#fff" },
+        uppercase && { textTransform: "uppercase" },
       ]}
     >
       {children}

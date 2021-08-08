@@ -8,10 +8,22 @@ import { colors, spacing } from '../theme'
 import { AntDesign } from '@expo/vector-icons'
 import { ImageSourcePropType } from 'react-native'
 import LottieView from 'lottie-react-native';
+import { useNavigation } from '@react-navigation/native'
 
 const FeatureBox = ({title, image}: {title: string, image: ImageSourcePropType}) => {
+    const navigation = useNavigation();
+    const onFeaturePress = () => {
+        switch (title) {
+            case 'HEADPHONES':
+                return navigation.navigate('Headphones');
+            case 'SPEAKERS':
+                return navigation.navigate('Speakers');
+            case 'EARPHONES':
+                return navigation.navigate('Earphones');
+        }
+    }
     return (
-        <View style={{ margin: spacing[8], marginHorizontal: spacing[5], borderRadius: 16, backgroundColor: colors.grey, alignItems: 'center', padding: spacing[5]}}>
+        <Pressable onPress={() => onFeaturePress()} style={{ margin: spacing[8], marginHorizontal: spacing[5], borderRadius: 16, backgroundColor: colors.grey, alignItems: 'center', padding: spacing[5]}}>
             <Image style={{top: -60}} source={image} />
             <View style={{marginTop: -30, alignItems: 'center', justifyContent: 'center'}}>
                 <Text preset="h6">{title}</Text>
@@ -21,6 +33,26 @@ const FeatureBox = ({title, image}: {title: string, image: ImageSourcePropType})
                 </View>
             </View>
             
+        </Pressable>
+    )
+}
+
+const FeaturedProduct = ({name, category, image}:{name: string, category: string, image: ImageSourcePropType}) => {
+    const windowWidth = useWindowDimensions().width;
+    return (
+        <View style={{marginVertical: spacing[5], backgroundColor: colors.primary, borderRadius: 16, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{borderWidth: 1, borderColor: '#D8D8D8', borderRadius: 400, height: 320, width: windowWidth - 40, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{borderWidth: 1, borderColor: '#D8D8D8', borderRadius: 400, height: 280, width: windowWidth - 80, alignItems: 'center', justifyContent: 'center'}}>
+                    <Image style={{height: 172, width: 188}} resizeMode="contain" source={require('../assets/images/home-speaker.png')} />
+                </View>
+            </View>
+            <View style={{marginTop: -spacing[6], paddingBottom: spacing[8]}}>
+                <Text preset="h3" white centered>{name}</Text>
+                <Text preset="h3" white centered>{category}</Text>
+                <Text style={{width: 250, paddingTop: spacing[3]}} white centered>
+                    Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.
+                </Text>
+            </View>
         </View>
     )
 }
@@ -43,8 +75,6 @@ export default function HomeScreen() {
                             Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.
                         </Text>
                         <View>
-                            <Text preset="subtitle" centered style={{marginTop:spacing[2]}} textColor={colors.primary}>scroll down</Text>
-                            {/* <AntDesign name="down" style={{ alignSelf: 'center',marginTop: spacing[2]}} color={colors.primary} size={14} /> */}
                             <LottieView
                                 autoPlay
                                 style={{height: 60, width: 60, alignSelf: 'center'}}
@@ -60,12 +90,16 @@ export default function HomeScreen() {
                     <FeatureBox title={"SPEAKERS"} image={require('../assets/images/home-speaker.png')} />
                     <FeatureBox title={"EARPHONES"} image={require('../assets/images/home-earphone.png')} />
                 </View>
+
+                <View style={{ paddingVertical: spacing[6],paddingHorizontal: spacing[5] }}>
+                    <Text centered preset="h3">FEATURED</Text>
+                    <Text centered preset="h3">PRODCUTS</Text>
+
+                    <FeaturedProduct name="ZX9" category="SPEAKER" image={require('../assets/images/home-speaker.png')} />
+                    <FeaturedProduct name="XX99 MARK I" category="EARPHONE" image={require('../assets/images/home-speaker.png')} />
+                </View>
             </ScrollView>
            
-            {/* <Text>Home</Text>
-            <Text>{count}</Text>
-            <Pressable onPress={() =>dispatch(increment())}><Text>Increment</Text></Pressable>
-            <Pressable onPress={() =>dispatch(decrement())}><Text>Decrement</Text></Pressable> */}
         </SafeAreaView>
     )
 }
