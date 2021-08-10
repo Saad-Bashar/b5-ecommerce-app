@@ -11,16 +11,59 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
+import { useSelector } from "react-redux";
+import { selectCartLength } from "../redux/cartSlice";
 import CartScreen from "../screens/CartScreen";
 import EarphonesScreen from "../screens/EarphonesScreen";
 import HeadphonesScreen from "../screens/HeadphonesScreen";
 import HomeScreen from "../screens/HomeScreen";
+import ProductDetailsScreen from "../screens/ProductDetailsScreen";
 import SpeakersScreen from "../screens/SpeakersScreen";
 import { colors } from "../theme";
 
 const BottomTab = createBottomTabNavigator<any>();
 
+const HomeStack = createStackNavigator();
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+    </HomeStack.Navigator>
+  );
+}
+
+const HeadphonesStack = createStackNavigator();
+function HeadphonesStackScreen() {
+  return (
+    <HeadphonesStack.Navigator screenOptions={{ headerShown: false }}>
+      <HeadphonesStack.Screen name="Headphones" component={HeadphonesScreen} />
+      <HeadphonesStack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+    </HeadphonesStack.Navigator>
+  );
+}
+
+const SpeakersStack = createStackNavigator();
+function SpeakersStackScreen() {
+  return (
+    <SpeakersStack.Navigator screenOptions={{ headerShown: false }}>
+      <SpeakersStack.Screen name="Speakers" component={SpeakersScreen} />
+      <SpeakersStack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+    </SpeakersStack.Navigator>
+  );
+}
+
+const EarphonesStack = createStackNavigator();
+function EarphonesStackScreen() {
+  return (
+    <EarphonesStack.Navigator screenOptions={{ headerShown: false }}>
+      <EarphonesStack.Screen name="Speakers" component={EarphonesScreen} />
+      <EarphonesStack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+    </EarphonesStack.Navigator>
+  );
+}
+
 export default function BottomTabNavigator() {
+  const total = useSelector(selectCartLength)
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
@@ -28,7 +71,7 @@ export default function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
@@ -37,7 +80,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Headphones"
-        component={HeadphonesScreen}
+        component={HeadphonesStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon
@@ -50,7 +93,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Speakers"
-        component={SpeakersScreen}
+        component={SpeakersStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon
@@ -63,7 +106,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Earphones"
-        component={EarphonesScreen}
+        component={EarphonesStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon
@@ -81,6 +124,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="cart-outline" color={color} />
           ),
+          tabBarBadge: total
         }}
       />
     </BottomTab.Navigator>

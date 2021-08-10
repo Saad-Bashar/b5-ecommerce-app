@@ -9,8 +9,9 @@ import BannerFooter from '../components/BannerFooter'
 import { useSelector } from 'react-redux'
 import { selectProductsByCategory } from '../redux/productsSlice'
 import { ProductType } from '../data/products'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-function HeadphonesScreen() {
+function HeadphonesScreen({navigation}: {navigation: StackNavigationProp<any>}) {
     const headphones : ProductType[] = useSelector(state => selectProductsByCategory(state, "headphones"))
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -31,7 +32,11 @@ function HeadphonesScreen() {
                                             {headphone.description}
                                         </Text>
                                     </View>
-                                    <Button style={{alignSelf: 'center'}} title="SEE PRODUCT" />
+                                    <Button 
+                                        onPress={() => navigation.navigate('ProductDetails', {id: headphone.id})}
+                                        style={{alignSelf: 'center'}} 
+                                        title="SEE PRODUCT" 
+                                    />
                                 </View>
                             )
 

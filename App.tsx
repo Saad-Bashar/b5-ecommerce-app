@@ -7,18 +7,23 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import {store} from './redux/store'
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import FlashMessage from "react-native-flash-message";
 
+
+let persistor = persistStore(store)
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+	const isLoadingComplete = useCachedResources();
+	const colorScheme = useColorScheme();
 
-  let [fontsLoaded] = useFonts({
-    'Manrope-Bold': require('./assets/fonts/Manrope-Bold.ttf'),
-    'Manrope-Regular': require('./assets/fonts/Manrope-Regular.ttf'),
-    'Manrope-Medium': require('./assets/fonts/Manrope-Medium.ttf'),
-  });
+  	let [fontsLoaded] = useFonts({
+		'Manrope-Bold': require('./assets/fonts/Manrope-Bold.ttf'),
+		'Manrope-Regular': require('./assets/fonts/Manrope-Regular.ttf'),
+		'Manrope-Medium': require('./assets/fonts/Manrope-Medium.ttf'),
+  	});
 
 
   if (!isLoadingComplete || !fontsLoaded) {
@@ -26,10 +31,13 @@ export default function App() {
   } else {
     return (
       <Provider store={store}>
-        <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </SafeAreaProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          	<SafeAreaProvider>
+				<Navigation colorScheme={colorScheme} />
+				<StatusBar />
+				<FlashMessage position="top" floating statusBarHeight={30} />
+          	</SafeAreaProvider>
+        </PersistGate>
       </Provider>
     );
   }

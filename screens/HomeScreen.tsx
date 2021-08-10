@@ -9,6 +9,8 @@ import { AntDesign } from '@expo/vector-icons'
 import { ImageSourcePropType } from 'react-native'
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native'
+import Button from '../components/Button'
+import { reset } from '../redux/cartSlice'
 
 const FeatureBox = ({title, image}: {title: string, image: ImageSourcePropType}) => {
     const navigation = useNavigation();
@@ -59,10 +61,7 @@ const FeaturedProduct = ({name, category, image}:{name: string, category: string
 
 
 export default function HomeScreen() {
-    const count = useSelector(selectCount)
     const dispatch = useDispatch()
-    const windowWidth = useWindowDimensions().width;
-    const windowHeight = useWindowDimensions().height;
     return (
         <SafeAreaView>
             <ScrollView>
@@ -84,6 +83,8 @@ export default function HomeScreen() {
                         
                     </View>
                 </View>
+
+                <Button title="RESET CART" onPress={() => dispatch(reset())} />
 
                 <View style={{paddingTop: 64}}>
                     <FeatureBox title={"HEADPHONES"} image={require('../assets/images/home-headphone.png')} />
