@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: 160, 
-        height: 48
+        height: 48,
+        borderRadius: 8
     },
     primary: {
         backgroundColor: colors.primary

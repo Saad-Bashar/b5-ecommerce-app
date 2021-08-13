@@ -11,10 +11,8 @@ export const cartSlice = createSlice({
         console.log({payload, state})
 
         if (isItemInCart) {
-            console.log('Item already in cart')
             return state.map((item) => item.id === cartProduct.id ? { ...item, ...cartProduct } : item);
         } else {
-            console.log('Item not in cart')
             return [...state, { ...cartProduct }];
         }
     },

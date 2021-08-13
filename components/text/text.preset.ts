@@ -46,6 +46,10 @@ export const presets = {
     subtitle: {
         ...BOLD,
         fontSize: 13
+    },
+    title: {
+        ...BOLD,
+        fontSize: 14
     }
 }
 

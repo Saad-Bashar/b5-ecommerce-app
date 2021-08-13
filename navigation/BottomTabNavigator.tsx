@@ -14,6 +14,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { selectCartLength } from "../redux/cartSlice";
 import CartScreen from "../screens/CartScreen";
+import CheckoutScreen from "../screens/CheckoutScreen";
 import EarphonesScreen from "../screens/EarphonesScreen";
 import HeadphonesScreen from "../screens/HeadphonesScreen";
 import HomeScreen from "../screens/HomeScreen";
@@ -59,6 +60,16 @@ function EarphonesStackScreen() {
       <EarphonesStack.Screen name="Speakers" component={EarphonesScreen} />
       <EarphonesStack.Screen name="ProductDetails" component={ProductDetailsScreen} />
     </EarphonesStack.Navigator>
+  );
+}
+
+const CartStack = createStackNavigator();
+function CartStackScreen() {
+  return (
+    <CartStack.Navigator initialRouteName="Checkout" screenOptions={{ headerShown: false }}>
+      <CartStack.Screen name="Speakers" component={CartScreen} />
+      <CartStack.Screen name="Checkout" component={CheckoutScreen} />
+    </CartStack.Navigator>
   );
 }
 
@@ -119,7 +130,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Cart"
-        component={CartScreen}
+        component={CartStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="cart-outline" color={color} />
