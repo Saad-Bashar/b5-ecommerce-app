@@ -18,7 +18,7 @@ export interface ProductType {
   category: string;
   name: string;
   price: number;
-  isFeatured: boolean;
+  is_featured: 1 | 0 | boolean;
   description: string;
   featuredImage: FeaturedImageType;
   images: Images[];
@@ -30,7 +30,7 @@ const DATA: ProductType[] = [
   {
     id: 1,
     category: "headphones",
-    isFeatured: false,
+    is_featured: false,
     name: "XX99 Mark II",
     description:
       "The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound",
@@ -54,7 +54,7 @@ const DATA: ProductType[] = [
   {
     id: 2,
     category: "headphones",
-    isFeatured: false,
+    is_featured: false,
     name: "XX99 Mark I",
     description:
       "As the headphones all others are measured against, the XX99 Mark I demonstrates over five decades of audio expertise, redefining the critical listening experience. This pair of closed-back headphones are made of industrial, aerospace-grade materials to emphasize durability at a relatively light weight of 11 oz.  From the handcrafted microfiber ear cushions to the robust metal headband with inner damping element, the components work together to deliver comfort and uncompromising sound. Its closed-back design delivers up to 27 dB of passive noise cancellation, reducing resonance by reflecting sound to a dedicated absorber. For connectivity, a specially tuned cable is included with a balanced gold connector.",
@@ -77,7 +77,7 @@ const DATA: ProductType[] = [
   {
     id: 3,
     category: "headphones",
-    isFeatured: false,
+    is_featured: false,
     name: "XX59",
     description:
       "Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move.",
@@ -100,7 +100,7 @@ const DATA: ProductType[] = [
   {
     id: 4,
     category: "speakers",
-    isFeatured: false,
+    is_featured: false,
     name: "ZX9",
     description:
       "Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved bluetooth technology offers near lossless audio quality at up to 328ft (100m). Discover clear, more natural sounding highs than the competition with ZX9’s signature planar diaphragm tweeter. Equally important is its powerful room-shaking bass courtesy of a 6.5” aluminum alloy bass unit. You’ll be able to enjoy equal sound quality whether in a large room or small den. Furthermore, you will experience new sensations from old songs since it can respond to even the subtle waveforms.",
@@ -124,7 +124,7 @@ const DATA: ProductType[] = [
   {
     id: 5,
     category: "speakers",
-    isFeatured: false,
+    is_featured: false,
     name: "ZX7",
     description:
       "Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved bluetooth technology offers near lossless audio quality at up to 328ft (100m). Discover clear, more natural sounding highs than the competition with ZX9’s signature planar diaphragm tweeter. Equally important is its powerful room-shaking bass courtesy of a 6.5” aluminum alloy bass unit. You’ll be able to enjoy equal sound quality whether in a large room or small den. Furthermore, you will experience new sensations from old songs since it can respond to even the subtle waveforms.",
@@ -148,7 +148,7 @@ const DATA: ProductType[] = [
   {
     id: 6,
     category: "earphones",
-    isFeatured: false,
+    is_featured: false,
     name: "YX1 WIRELESS",
     description:
       "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
@@ -170,5 +170,61 @@ const DATA: ProductType[] = [
     ],
   },
 ];
+
+export interface PRODUCT_IMAGE_MAP_TYPE {
+	[id: string]: { featuredImage: FeaturedImageType; images: Images[] }
+}
+
+export const PRODUCT_IMAGE_MAP : PRODUCT_IMAGE_MAP_TYPE = {
+  "XX99 Mark II": {
+    featuredImage: { source: require("../assets/images/xx99-mark-2.png") },
+    images: [
+      { source: require("../assets/images/xx99-mark-two-1.png") },
+      { source: require("../assets/images/xx99-mark-two-2.png") },
+      { source: require("../assets/images/xx99-mark-two-3.png") },
+    ],
+  },
+  "XX99 Mark I": {
+    featuredImage: { source: require("../assets/images/xx99-mark-1.png") },
+    images: [
+      { source: require("../assets/images/xx99-mark-one-1.png") },
+      { source: require("../assets/images/xx99-mark-one-2.png") },
+      { source: require("../assets/images/xx99-mark-one-3.png") },
+    ],
+  },
+  "XX59": {
+    featuredImage: { source: require("../assets/images/xx59.png") },
+    images: [
+      { source: require("../assets/images/xx59-1.png") },
+      { source: require("../assets/images/xx59-2.png") },
+      { source: require("../assets/images/xx59-3.png") },
+    ],
+  },
+  "ZX9": {
+    featuredImage: { source: require("../assets/images/zx9.png") },
+    images: [
+      { source: require("../assets/images/zx9-1.png") },
+      { source: require("../assets/images/zx9-2.png") },
+      { source: require("../assets/images/zx9-3.png") },
+    ],
+  },
+  "ZX7": {
+    featuredImage: { source: require("../assets/images/zx7.png") },
+    images: [
+      { source: require("../assets/images/zx7-1.png") },
+      { source: require("../assets/images/zx7-2.png") },
+      { source: require("../assets/images/zx7-3.png") },
+    ],
+  },
+  "YX1 WIRELESS": {
+    featuredImage: { source: require("../assets/images/yx1.png") },
+    images: [
+      { source: require("../assets/images/yx1-1.png") },
+      { source: require("../assets/images/yx1-2.png") },
+      { source: require("../assets/images/yx1-3.png") },
+    ],
+  },
+
+}
 
 export default DATA;

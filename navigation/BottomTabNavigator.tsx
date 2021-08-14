@@ -66,7 +66,7 @@ function EarphonesStackScreen() {
 const CartStack = createStackNavigator();
 function CartStackScreen() {
   return (
-    <CartStack.Navigator initialRouteName="Checkout" screenOptions={{ headerShown: false }}>
+    <CartStack.Navigator screenOptions={{ headerShown: false }}>
       <CartStack.Screen name="Speakers" component={CartScreen} />
       <CartStack.Screen name="Checkout" component={CheckoutScreen} />
     </CartStack.Navigator>

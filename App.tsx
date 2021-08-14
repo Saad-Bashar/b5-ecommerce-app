@@ -11,6 +11,8 @@ import {store} from './redux/store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import FlashMessage from "react-native-flash-message";
+import { useGetPokemonByNameQuery } from './services/pokemon'
+
 
 
 let persistor = persistStore(store)
@@ -18,6 +20,8 @@ let persistor = persistStore(store)
 export default function App() {
 	const isLoadingComplete = useCachedResources();
 	const colorScheme = useColorScheme();
+	// Using a query hook automatically fetches data and returns query values
+	
 
   	let [fontsLoaded] = useFonts({
 		'Manrope-Bold': require('./assets/fonts/Manrope-Bold.ttf'),
