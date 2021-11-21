@@ -1,20 +1,21 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import { colors, spacing } from '../theme'
 import Text from './text/text'
 
-export default function Checkbox({selected, text, disable}: {selected: boolean, text: string, disable?: boolean}) {
+export default function Checkbox({text, selected, disable}) {
     return (
-        <TouchableOpacity onPress={() => {}} disabled={disable} style={[styles.wrapper, selected && styles.selected, disable && styles.disabled]}>
+        <TouchableOpacity disabled={disable} style={[styles.wrapper, selected && styles.selectedWrapper,  disable && {opacity: 0.4},]}>
             <View style={styles.outerCircle}>
                 <View style={[styles.innerCircle, selected && {backgroundColor: colors.primary}]} />
             </View>
-            <Text style={{ marginLeft: spacing[4]}} preset="subtitle">
+            <Text style={{ marginLeft: 10}} preset="subtitle">
                 {text}
             </Text>
         </TouchableOpacity>
     )
 }
+
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -26,6 +27,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cfcfcf'
     },
+    selectedWrapper: {
+        borderColor: colors.primary
+    },
     outerCircle: {
         height: 20, 
         width: 20,
@@ -35,9 +39,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    disabled: {
-        opacity: 0.3,
-    },
     innerCircle: {
         height: 10,
         width: 10,
@@ -45,8 +46,4 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#cfcfcf"
     },
-    selected: {
-        borderWidth: 1,
-        borderColor: colors.primary
-    }
 })

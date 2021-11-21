@@ -3,7 +3,7 @@ import { View, Image } from 'react-native'
 import { colors, spacing } from '../theme'
 import Text from './text/text'
 
-export default function BannerFooter() {
+export default function Footer() {
     return (
         <View style={{padding: spacing[5], alignItems: 'center'}}>
             <Image 
@@ -18,7 +18,7 @@ export default function BannerFooter() {
             </View>
             
 
-            <Text textColor="#c3c3c3" centered style={{paddingHorizontal: spacing[5]}}>
+            <Text textColor="#c3c3c3" centered>
                 Located at the heart of New York City, Audiophile is the premier store for high end 
                 headphones, earphones, speakers, and audio accessories. We have a large showroom and 
                 luxury demonstration rooms available for you to browse and experience a wide range of 

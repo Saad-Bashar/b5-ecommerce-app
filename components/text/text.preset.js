@@ -1,13 +1,12 @@
-import { TextStyle } from "react-native"
-import { colors, typography } from '../../theme/'
+import { colors, typography } from '../../theme'
 
-const BASE: TextStyle = {
+const BASE = {
     fontFamily: typography.primary,
     fontSize: 15,
     color: colors.black
 }
 
-const BOLD: TextStyle = {
+const BOLD = {
     fontFamily: typography.bold,
     color: colors.black
 }
@@ -52,8 +51,3 @@ export const presets = {
         fontSize: 14
     }
 }
-
-/**
- * A list of preset names.
- */
- export type TextPresets = keyof typeof presets

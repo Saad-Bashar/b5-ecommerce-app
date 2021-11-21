@@ -3,17 +3,7 @@ import { Text as ReactNativeText, TextStyle } from "react-native";
 import { presets, TextPresets } from "./text.preset";
 import { mergeAll, flatten } from "ramda";
 
-export interface TextProps {
-  children?: React.ReactNode;
-  style?: TextStyle | TextStyle[];
-  preset?: TextPresets;
-  textColor?: string;
-  centered?: boolean;
-  white?: boolean;
-  uppercase?: boolean;
-}
-
-export default function Text(props: TextProps) {
+export default function Text(props) {
   const {
     preset = "default",
     children,

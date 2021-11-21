@@ -1,63 +1,49 @@
-import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
-import { View, SafeAreaView, ScrollView, Image, Pressable } from 'react-native'
-import { useSelector } from 'react-redux'
+import React, {useState} from 'react'
+import { View, SafeAreaView, ScrollView, Pressable, Image } from 'react-native'
 import BannerTitle from '../components/BannerTitle'
-import Button from '../components/Button'
-import CounterButton from '../components/Counter'
-import Counter from '../components/Counter'
 import Text from '../components/text/text'
-import { ProductType } from '../data/products'
-import { selectProductById } from '../redux/productsSlice'
-import { colors, spacing } from '../theme'
 import { Ionicons } from "@expo/vector-icons";
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../redux/cartSlice'
-import { showMessage } from 'react-native-flash-message'
-
-
-export interface Route {
-    params: {
-        id: number
-    }
-}
-
-export default function ProductDetailsScreen({navigation, route}: {navigation: StackNavigationProp<any>, route: Route}) {
-    const product : ProductType = useSelector(state => selectProductById(state, route.params.id))
-    const {id, name, featuredImage, description, price, category, features, includedItems, images} = product
+import { colors, spacing } from '../theme';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectProductsById } from '../redux/productSlice';
+import CounterButton from '../components/CounterButton';
+import Button from '../components/Button';
+import { showMessage } from 'react-native-flash-message';
+import { addToCart } from '../redux/cartSlice';
+export default function ProductDetails({ navigation, route }) {
+    const id = route.params.id
+    const product = useSelector(state => selectProductsById(state, id))
+    const { featuredImage, name, price, description, category, features, included, images } = product
     const [amount, setAmount] = useState(0)
     const dispatch = useDispatch()
 
-    const onAmountChange = (amount : number) => {
-        setAmount(amount);
-    }
-
-    const onPressAddCart = () => {
+    const add = () => {
         if(amount === 0) {
             return showMessage({
-                message: "Please check your product quantity",
-                type: "danger",
+                message: 'Amount must be greater than 0',
+                type: 'danger',
             })
         }
-
+        // now we can add products to cart
+        // we create a cart product
         const cartProduct = {
             id,
             name,
             featuredImage,
             price,
             quantityPrice: price * amount,
-            amount: amount,
+            amount: amount
         }
-        
-        dispatch(addToCart({cartProduct}))
+
+        dispatch(addToCart({cartProduct}));
         showMessage({
-            message: "Item is added to cart successfully",
-            type: "warning",
+            message: 'Product added to cart',
+            type: 'success',
         })
     }
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
                 <BannerTitle />
                 <Pressable onPress={() => navigation.goBack()}>
@@ -67,6 +53,7 @@ export default function ProductDetailsScreen({navigation, route}: {navigation: S
                     <View style={{backgroundColor: colors.grey, borderRadius: 16, alignItems: 'center', justifyContent: 'center', paddingVertical: spacing[8]}}>
                         <Image source={featuredImage.source} />
                     </View>
+
                     <View style={{marginVertical: spacing[5]}}>
                         <Text preset="h4">{name}</Text>
                         <Text uppercase preset="h4">{category}</Text>
@@ -77,9 +64,16 @@ export default function ProductDetailsScreen({navigation, route}: {navigation: S
                             {`$ ${price}`}
                         </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: spacing[6] }}>
-                        <CounterButton setAmount={(value: number) => onAmountChange(value)} />
-                        <Button onPress={onPressAddCart} title="ADD TO CART" style={{ marginLeft: spacing[4] }} />
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: spacing[6]}}>
+                        <CounterButton 
+                            setAmount={setAmount}
+                        />
+                        <Button
+                            title="Add to cart"
+                            style={{ marginLeft: spacing[4] }}
+                            onPress={add}
+                        />
                     </View>
 
                     <View style={{marginVertical: spacing[5]}}>
@@ -89,13 +83,14 @@ export default function ProductDetailsScreen({navigation, route}: {navigation: S
 
                     <View style={{marginVertical: spacing[5]}}>
                         <Text preset="h4">IN THE BOX</Text>
-                        {includedItems.map(item => 
+                        {included.map(item => 
                             <View key={item.name} style={{flexDirection: 'row', alignItems: 'center', marginVertical: spacing[3]}}>
                                 <Text preset="h6" textColor={colors.primary}>{item.amount}x</Text>
                                 <Text textColor="#7d7d7d" style={{marginLeft: spacing[3]}}>{item.name}</Text>
                             </View>
                         )}
                     </View>
+
                     <View style={{marginVertical: spacing[8]}}>
                         {images.map((image, index) => {
                             return (
